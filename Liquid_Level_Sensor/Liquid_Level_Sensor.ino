@@ -30,7 +30,7 @@ unsigned long previous_millis = 0;
 unsigned long detect_interval = 300000;
 
 const char thingSpeakAddress[] = "api.thingspeak.com";
-const char thingSpeakAPIKey[] = "";
+const char thingSpeakAPIKey[] = "H1KHAGG7TIRGN6N0";
 
 //the number the message should be sent to
 const String sendNumber = "";
@@ -115,13 +115,13 @@ void waterDetection(){
   current_millis = millis();
   if(current_millis - previous_millis >= detect_interval) {
     ad_value=analogRead(water_ain);
-    if(ad_value>200)
+    if(ad_value>160)
     {
       Serial.println("High water level");
       //mqtt.disconnect();
       updateThingSpeak("1=1");
       delay(5000);
-      updateMQTT("Low");
+      updateMQTT("High");
     }
     else
     {
@@ -152,5 +152,6 @@ void setup()
 }
 void loop(){
   waterDetection();
+  //Serial.println(analogRead(water_ain));
  
 }
