@@ -27,7 +27,7 @@ Adafruit_MQTT_Publish waterlevel = Adafruit_MQTT_Publish(&mqtt,AIO_TOPIC);
 
 unsigned long current_millis;
 unsigned long previous_millis = 0;
-unsigned long detect_interval = 300000;
+unsigned long detect_interval = 100000;
 
 const char thingSpeakAddress[] = "api.thingspeak.com";
 const char thingSpeakAPIKey[] = "H1KHAGG7TIRGN6N0";
@@ -108,6 +108,7 @@ void updateMQTT(char* data){
   } else {
     Serial.println(F("OK!"));
   }
+  mqtt.disconnect();
 }
 
 
@@ -148,7 +149,7 @@ void setup()
   Serial.print("connecting to ");
   wifiManager.autoConnect("WaterLevelSensor");
   //setup_wifi();
-  MQTT_connect();
+  //MQTT_connect();
 }
 void loop(){
   waterDetection();
